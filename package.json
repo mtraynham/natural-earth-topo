@@ -12,5 +12,8 @@
     },
     "devDependencies": {
         "topojson": "~1.6.8"
+    },
+    "scripts": {
+        "postinstall": "svn co https://github.com/nvkelso/natural-earth-vector/trunk/geojson"
     }
 }
