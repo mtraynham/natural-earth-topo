@@ -1,0 +1,16 @@
+{
+    "author": "Matt Traynham",
+    "name": "natural-earth-topo",
+    "version": "1.0.0",
+    "description": "Converted natural-earth-vector's geoJson to topoJson",
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/mtraynham/natural-earth-topo.git"
+    },
+    "engines": {
+        "node": ">= 0.8.4"
+    },
+    "devDependencies": {
+        "topojson": "~1.6.8"
+    }
+}
