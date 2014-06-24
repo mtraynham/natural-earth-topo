@@ -2,7 +2,7 @@
     "author": "Matt Traynham",
     "name": "natural-earth-topo",
     "version": "1.0.0",
-    "description": "Converted natural-earth-vector's geoJson to topoJson",
+    "description": "Converted Natural Earth Vectors' GeoJSON to TopoJSON",
     "repository": {
         "type": "git",
         "url": "git://github.com/mtraynham/natural-earth-topo.git"
