@@ -1,0 +1,15 @@
+{
+    "name": "natural-earth-topo",
+    "version": "1.0.0",
+    "main": [
+        "./topojson/ne_50m_admin_1_states_provinces_lakes_shp.json",
+        "./topojson/ne_110m_admin_0_countries_lakes.json",
+        "./topojson/ne_10m_time_zones.json"
+    ],
+    "ignore": [
+        "**/*",
+        "!./topojson/ne_50m_admin_1_states_provinces_lakes_shp.json",
+        "!./topojson/ne_110m_admin_0_countries_lakes.json",
+        "!./topojson/ne_10m_time_zones.json"
+    ]
+}
