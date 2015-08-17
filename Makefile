@@ -1,3 +1,5 @@
+SVN_URL=https://github.com/nvkelso/natural-earth-vector/trunk
+
 all: \
 	topojson/ne_10m_admin_0_antarctic_claim_limit_lines.json \
 	topojson/ne_10m_admin_0_antarctic_claims.json \
@@ -17,9 +19,13 @@ all: \
 	topojson/ne_10m_admin_0_scale_rank_minor_islands.json \
 	topojson/ne_10m_admin_0_seams.json \
 	topojson/ne_10m_admin_0_sovereignty.json \
+	topojson/ne_10m_admin_1_label_points.json \
 	topojson/ne_10m_admin_1_seams.json \
+	topojson/ne_10m_admin_1_states_provinces.json \
+	topojson/ne_10m_admin_1_states_provinces_lakes.json \
 	topojson/ne_10m_admin_1_states_provinces_lakes_shp.json \
 	topojson/ne_10m_admin_1_states_provinces_lines.json \
+	topojson/ne_10m_admin_1_states_provinces_scale_rank.json \
 	topojson/ne_10m_admin_1_states_provinces_shp.json \
 	topojson/ne_10m_airports.json \
 	topojson/ne_10m_antarctic_ice_shelves_lines.json \
@@ -79,10 +85,8 @@ all: \
 	topojson/ne_10m_rivers_lake_centerlines_scale_rank.json \
 	topojson/ne_10m_rivers_north_america.json \
 	topojson/ne_10m_roads.json \
-	topojson/ne_10m_roads_north_america.json \
 	topojson/ne_10m_time_zones.json \
 	topojson/ne_10m_urban_areas.json \
-	topojson/ne_10m_urban_areas_landscan.json \
 	topojson/ne_10m_wgs84_bounding_box.json \
 	topojson/ne_110m_admin_0_boundary_lines_land.json \
 	topojson/ne_110m_admin_0_countries.json \
@@ -92,8 +96,11 @@ all: \
 	topojson/ne_110m_admin_0_scale_rank.json \
 	topojson/ne_110m_admin_0_sovereignty.json \
 	topojson/ne_110m_admin_0_tiny_countries.json \
+	topojson/ne_110m_admin_1_states_provinces.json \
+	topojson/ne_110m_admin_1_states_provinces_lakes.json \
 	topojson/ne_110m_admin_1_states_provinces_lakes_shp.json \
 	topojson/ne_110m_admin_1_states_provinces_lines.json \
+	topojson/ne_110m_admin_1_states_provinces_scale_rank.json \
 	topojson/ne_110m_admin_1_states_provinces_shp.json \
 	topojson/ne_110m_admin_1_states_provinces_shp_scale_rank.json \
 	topojson/ne_110m_coastline.json \
@@ -130,8 +137,11 @@ all: \
 	topojson/ne_50m_admin_0_sovereignty.json \
 	topojson/ne_50m_admin_0_tiny_countries.json \
 	topojson/ne_50m_admin_0_tiny_countries_scale_rank.json \
+	topojson/ne_50m_admin_1_states_provinces.json \
+	topojson/ne_50m_admin_1_states_provinces_lakes.json \
 	topojson/ne_50m_admin_1_states_provinces_lakes_shp.json \
 	topojson/ne_50m_admin_1_states_provinces_lines.json \
+	topojson/ne_50m_admin_1_states_provinces_scale_rank.json \
 	topojson/ne_50m_admin_1_states_provinces_shp.json \
 	topojson/ne_50m_admin_1_states_provinces_shp_scale_rank.json \
 	topojson/ne_50m_antarctic_ice_shelves_lines.json \
@@ -161,12 +171,24 @@ all: \
 	topojson/ne_50m_urban_areas.json \
 	topojson/ne_50m_wgs84_bounding_box.json \
 
+geojson:
+	mkdir $@
 
-topojson/%.json: geojson/%.geojson
+geojson/%.geojson.gz: geojson
+	svn export --force $(SVN_URL)/$@ $@
+
+geojson/%.geojson: geojson/%.geojson.gz
+	gunzip -c -f $< > $@
+
+topojson:
+	mkdir $@
+
+topojson/%.json: geojson/%.geojson topojson
 	node_modules/.bin/topojson \
 		-o $@ \
 		-p \
 		-- $< \
 
 clean:
-	rm -rf topojson/*
+	rm -rf geojson
+	rm -rf topojson
